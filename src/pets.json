@@ -2,34 +2,38 @@
   {
     "id": 0,
     "name": "Frieda",
-    "picture": "images/scottish-terrier.jpeg",
-    "age": 3,
-    "breed": "Scottish Terrier",
-    "location": "Lisco, Alabama"
+    "picture": "images/Shiba-Inu.jpeg",
+    "age": 2,
+    "breed": "Shiba Inu",
+    "location": "London, ON",
+    "price": 500000000000000000
   },
   {
     "id": 1,
     "name": "Gina",
-    "picture": "images/scottish-terrier.jpeg",
-    "age": 3,
-    "breed": "Scottish Terrier",
-    "location": "Tooleville, West Virginia"
+    "picture": "images/Maltese.jpeg",
+    "age": 1,
+    "breed": "Maltese",
+    "location": "Toronto, ON",
+    "price": 250000000000000000
   },
   {
     "id": 2,
     "name": "Collins",
-    "picture": "images/french-bulldog.jpeg",
-    "age": 2,
-    "breed": "French Bulldog",
-    "location": "Freeburn, Idaho"
+    "picture": "images/Border-Collie.jpeg",
+    "age": 3,
+    "breed": "Border Collie",
+    "location": "Vancouver, BC",
+    "price": 200000000000000000
   },
   {
     "id": 3,
     "name": "Melissa",
-    "picture": "images/boxer.jpeg",
+    "picture": "images/Cavalier-King-Charles-Spaniel.jpeg",
     "age": 2,
-    "breed": "Boxer",
-    "location": "Camas, Pennsylvania"
+    "breed": "King Charles Spaniel",
+    "location": "Saskatoon, SK",
+    "price": 300000000000000000
   },
   {
     "id": 4,
@@ -37,39 +41,44 @@
     "picture": "images/french-bulldog.jpeg",
     "age": 2,
     "breed": "French Bulldog",
-    "location": "Gerber, South Dakota"
+    "location": "Montreal, QC",
+    "price": 300000000000000000
   },
   {
     "id": 5,
     "name": "Elvia",
-    "picture": "images/french-bulldog.jpeg",
-    "age": 3,
-    "breed": "French Bulldog",
-    "location": "Innsbrook, Illinois"
+    "picture": "images/Golden-Retriever.jpeg",
+    "age": 1,
+    "breed": "Golden Retriever",
+    "location": "Toronto, ON",
+    "price": 0
   },
   {
     "id": 6,
     "name": "Latisha",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 3,
-    "breed": "Golden Retriever",
-    "location": "Soudan, Louisiana"
+    "picture": "images/Samoyed.jpeg",
+    "age": 2,
+    "breed": "Samoyed",
+    "location": "Vancouver, BC",
+    "price": 250000000000000000
   },
   {
     "id": 7,
     "name": "Coleman",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 3,
-    "breed": "Golden Retriever",
-    "location": "Jacksonwald, Palau"
+    "picture": "images/Samoyed2.jpeg",
+    "age": 5,
+    "breed": "Samoyed",
+    "location": "Vancouver, BC",
+    "price": 0
   },
   {
     "id": 8,
     "name": "Nichole",
-    "picture": "images/french-bulldog.jpeg",
-    "age": 2,
-    "breed": "French Bulldog",
-    "location": "Honolulu, Hawaii"
+    "picture": "images/Alaskan-Malamute.jpeg",
+    "age": 4,
+    "breed": "Alaskan Malamute",
+    "location": "Montreal, QC",
+    "price": 50000000000000000
   },
   {
     "id": 9,
@@ -77,54 +86,25 @@
     "picture": "images/boxer.jpeg",
     "age": 3,
     "breed": "Boxer",
-    "location": "Matheny, Utah"
+    "location": "Toronto, ON",
+    "price": 330000000000000000
   },
   {
     "id": 10,
     "name": "Leonor",
-    "picture": "images/boxer.jpeg",
+    "picture": "images/Pomeranian.jpeg",
     "age": 2,
-    "breed": "Boxer",
-    "location": "Tyhee, Indiana"
+    "breed": "Pomeranian",
+    "location": "Vancouver, BC",
+    "price": 160000000000000000
   },
   {
     "id": 11,
     "name": "Dean",
-    "picture": "images/scottish-terrier.jpeg",
-    "age": 3,
-    "breed": "Scottish Terrier",
-    "location": "Windsor, Montana"
-  },
-  {
-    "id": 12,
-    "name": "Stevenson",
-    "picture": "images/french-bulldog.jpeg",
-    "age": 3,
-    "breed": "French Bulldog",
-    "location": "Kingstowne, Nevada"
-  },
-  {
-    "id": 13,
-    "name": "Kristina",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 4,
-    "breed": "Golden Retriever",
-    "location": "Sultana, Massachusetts"
-  },
-  {
-    "id": 14,
-    "name": "Ethel",
-    "picture": "images/golden-retriever.jpeg",
+    "picture": "images/Pomeranian2.jpeg",
     "age": 2,
-    "breed": "Golden Retriever",
-    "location": "Broadlands, Oregon"
-  },
-  {
-    "id": 15,
-    "name": "Terry",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 2,
-    "breed": "Golden Retriever",
-    "location": "Dawn, Wisconsin"
+    "breed": "Pomeranian",
+    "location": "Kingston, ON",
+    "price": 60000000000000000
   }
 ]
