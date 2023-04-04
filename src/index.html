@@ -1,87 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Pet Shop</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pet Shop Landing Page</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <!-- Logo -->
+                <div class="navbar-logo">Pet-First</div>
+        
+                <!-- Nav links -->
+                <div class="navbar-links">
+                    <a href="#" class="navbar-link">Home</a>
+                    <a href="#" class="navbar-link">Our Pets</a>
+                    <a href="#" class="navbar-link">Register Your Pet</a>
+                    <a href="#" class="navbar-link">Our Products</a>
+                </div>
+            </nav>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Pet Shop</h1>
-          <hr/>
-          <br/>
+            <img class="frame" src = "images/frame.png"/>
+            <img class="frame1" src = "images/frame-1.png"/>
+            <img class="dog" src = "images/dog000-1.png"/>
+            <img class="dec" src = "images/dec.png"/>
+            <img class="group-1" src = "images/group-1.png"/>
+
+            <div class="title-group">
+                <img class="frame2" src = "images/frame-2.png"/>
+                <h1>PET FIRST: </h1>
+                <h1 id="orange">WHERE PETS ALWAYS </h1>
+                <h1>COME FIRST</h1>
+                <div class="button-group">
+                    <a href="/pets.html"><button>View Our Pets</button></a>
+                    <a href="/form.html"><button>Register Your Pet</button></a>
+                </div>
+            </div>
         </div>
-      </div>
-      <a href="/form.html"><button id="add-pet">Add Pet</button></a>
-      <hr/>
-      <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div>
-    </div>
-
-    <div id="petTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-pet">
-          <div class="panel-heading">
-            <h3 class="panel-title">Scrappy</h3>
-          </div>
-          <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;" src="images/golden-retriever.jpeg" 
-            width="140" height="380" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
-            <strong>Age</strong>: <span class="pet-age">3</span><br/>
-            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/>
-            <strong>Price (ETH)</strong>: <span class="pet-price">1</span><br/><br/>
-            <button class="btn btn-default btn-buy" type="button" data-id="0" style="display:none;">Buy</button>
-            <button class="btn btn-default btn-adopt" type="button" data-id="0" style="display:none;">Adopt</button>
-          </div>
-        </div>
-      </div>
-
-    <!--
-    <div id="petTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-pet">
-          <div class="panel-heading">
-            <h3 class="panel-title">Scrappy</h3>
-          </div>
-          <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;" src="images/golden-retriever.jpeg" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
-            <strong>Age</strong>: <span class="pet-age">3</span><br/>
-            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/><br/>
-            <button class="btn btn-default btn-adopt" type="button" data-id="0">Adopt</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  -->
-  <script src="https://bundle.run/buffer@5.2.1"></script>
-  <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
-          integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
-          crossorigin="anonymous"></script>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/web3.min.js"></script>
-  <script src="js/truffle-contract.js"></script>
-  <script src="js/app.js"></script>
-</body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/web3.min.js"></script>
+        <script src="js/truffle-contract.js"></script>
+        <script src="js/app.js"></script>
+    </body>
 </html>

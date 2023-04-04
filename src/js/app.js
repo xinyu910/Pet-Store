@@ -3,32 +3,6 @@ App = {
   contracts: {},
 
   init: async function() {
-    // Load pets.
-    $.getJSON('../pets.json', function(data) {
-      var petsRow = $('#petsRow');
-      var petTemplate = $('#petTemplate');
-
-      for (i = 0; i < data.length; i ++) {
-        petTemplate.find('.panel-title').text(data[i].name);
-        petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
-        if (data[i].price > 0) {
-          petTemplate.find('.btn-buy').show();
-          petTemplate.find('.btn-adopt').hide();
-          petTemplate.find('.btn-buy').attr('data-id', data[i].id);
-        } else {
-          petTemplate.find('.btn-adopt').show();
-          petTemplate.find('.btn-buy').hide();
-          petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-        }
-        petTemplate.find('.pet-price').text(data[i].price/10e17);
-
-        petsRow.append(petTemplate.html());
-      }
-    });
-
     return await App.initWeb3();
   },
 
@@ -67,61 +41,15 @@ App = {
       // Set the provider for our contract
       App.contracts.PetShop.setProvider(App.web3Provider);
     
-      return App.initContractData();
+      return App.bindEvents();
     });
   },
 
-  initContractData: async function() {
-    //initialize contract data
-    $.getJSON('../pets.json', function(data) {
-      web3.eth.getAccounts(function(error, accounts) {
-        if (error) {
-          console.log(error);
-        }
-        var account = accounts[0];
-        data.forEach(function(item, i) {
-          const reader = new FileReader();
-          reader.onloadend = function () {
-            const ipfs = window.IpfsApi('localhost', 5001)
-            const buf = buffer.Buffer(reader.result)
-            ipfs.files.add(buf, (err, result) => {
-              if (err) {
-                console.error(err)
-                return
-              }
-              var url = `https://ipfs.io/ipfs/${result[0].hash}`;
-              console.log(url);
-
-              App.contracts.PetShop.deployed().then(function(instance) {
-                petShopInstance = instance;
-                return petShopInstance.registerPet(item.name, parseInt(item.age),
-                item.breed, item.location, url, item.price, 0, {from: account, gas: 320000});
-              }).then(function(result) {
-                return App.filterUnsold();
-              }).catch(function(err) {
-                console.log(err.message);
-              });
-            })
-          }
-          const file = fetch(item.picture).then(function(response) {
-            return response.blob().then(function(response) {
-              return new File([response], "result.jpeg", {
-                type: response.type || 'image/jpeg',
-              })
-            })
-          });
-
-          const getFile = () => {
-            file.then((a) => {
-              reader.readAsArrayBuffer(a);
-            });
-          };
-          getFile();
-        });
-      });
-    });
-
-    return App.bindEvents();
+  loadPages: async function(){ 
+    var petTemplate = $('#petTemplate');
+    var instance = await App.contracts.PetShop.deployed();
+    var petsNum = await instance.getCount();
+    //filter thing here (load pets)
   },
 
   filterUnsold: function() {
@@ -132,7 +60,6 @@ App = {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
     $(document).on('click', '.btn-buy', App.handleBuy);
     $(document).on('submit', '.add-form', App.handleRegistration);
-    $(document).on('click', '.add-pet', handleAdd);
   },
 
   handleAdd: function(event) {
@@ -209,12 +136,15 @@ App = {
           App.contracts.PetShop.deployed().then(function(instance) {
             petShopInstance = instance;
             return petShopInstance.registerPet(newData.name, parseInt(newData.age),
-                newData.breed, newData.location, url, newData.price, 0, { from: account, gas: 320000 });
+                newData.breed, newData.location, url, newData.price, 1e16, { from: account, gas: 320000, value: 1e16});
           }).then(function(result) {
             alert("Added Successfully!");
+            return petShopInstance.getCount.call();
           }).then(function(result){
-            console.log("result", result);
+            //not working here, reload should be in the load page (filter)
+            /*
             var petsRow = $('#petsRow');
+            console.log(petsRow);
             var petTemplate = $('#petTemplate');
             petTemplate.find('.panel-title').text(newData.name);
             petTemplate.find('img').attr('src', newData.picture);
@@ -233,7 +163,8 @@ App = {
             petTemplate.find('.pet-price').text(newData.price);
 
             petsRow.append(petTemplate.html());
-            window.location.replace("index.html");
+            console.log(petsRow);*/
+            window.location.replace("pets.html");
           }).catch(function(err) {
             console.log(err.message);
           });

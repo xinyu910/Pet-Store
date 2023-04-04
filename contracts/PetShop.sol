@@ -34,8 +34,7 @@ contract PetShop {
         require(_id >= 0 && _id<= petCount);
         Pet storage pet = pets[_id];
         require(!pet.isSold, "This pet is already sold");
-        //require(msg.value >= pet.price, "Insufficient funds");
-        require(msg.value >= 1 * 10**17, "Insufficient funds");
+        require(msg.value >= pet.price, "Insufficient funds");
         pet.isSold = true;
         pet.owner = msg.sender;
     }
