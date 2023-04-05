@@ -40,16 +40,60 @@ App = {
     
       // Set the provider for our contract
       App.contracts.PetShop.setProvider(App.web3Provider);
-    
-      return App.bindEvents();
+      
+      return App.loadPages();
     });
   },
 
-  loadPages: async function(){ 
-    var petTemplate = $('#petTemplate');
-    var instance = await App.contracts.PetShop.deployed();
-    var petsNum = await instance.getCount();
-    //filter thing here (load pets)
+  loadPages: async function() { 
+    let petsRow = $('#petsRow');
+    let petTemplate = $('#petTemplate');
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      let account = accounts[0];
+      App.contracts.PetShop.deployed().then(function(instance) {
+        instance.getCount().then(function(petsNum) {
+          let count = parseInt(petsNum);
+          let array = [...Array(count).keys()];
+          array.forEach(i => {
+            instance.getPetDetails(i+1).then(function(pet){
+              petTemplate.find('.panel-title').text(pet[1]);
+              petTemplate.find('img').attr('src', pet[5]);
+              petTemplate.find('.pet-breed').text(pet[3]);
+              petTemplate.find('.pet-age').text(parseInt(pet[2]));
+              petTemplate.find('.pet-location').text(pet[4]);
+              let x = BigInt("100000000000000");
+              let price = Number(BigInt(pet[6])/x)/10000;
+              if (price > 0) {
+                petTemplate.find('.btn-buy').show();
+                petTemplate.find('.btn-adopt').hide();
+                petTemplate.find('.btn-buy').attr('data-id', pet[0]);
+                if (pet[7] === true) {
+                  petTemplate.find('.btn-buy').text('Sold').attr('disabled', true);
+                } else {
+                  petTemplate.find('.btn-buy').text('Buy').attr('disabled', false);
+                }
+              } else {
+                petTemplate.find('.btn-adopt').show();
+                petTemplate.find('.btn-buy').hide();
+                petTemplate.find('.btn-adopt').attr('data-id', pet[0]);
+                if (pet[7] === true) {
+                  petTemplate.find('.btn-adopt').text('Adopted').attr('disabled', true);
+                } else {
+                  petTemplate.find('.btn-adopt').text('Adopt').attr('disabled', false);
+                }
+              }
+              petTemplate.find('.pet-price').text(price);
+
+              petsRow.append(petTemplate.html());
+            });
+          });
+        });
+      });
+    });
+    return App.bindEvents();
   },
 
   filterUnsold: function() {
@@ -60,10 +104,6 @@ App = {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
     $(document).on('click', '.btn-buy', App.handleBuy);
     $(document).on('submit', '.add-form', App.handleRegistration);
-  },
-
-  handleAdd: function(event) {
-    event.preventDefault();
   },
 
   handleAdopt: function(event) {
@@ -81,8 +121,7 @@ App = {
         // Execute adopt as a transaction by sending account
         return petShopInstance.adopt(petId, {from: account});
       }).then(function(result) {
-        $('.panel-pet').eq(petId).find('.btn-adopt').text('Success').attr('disabled', true);
-        return App.filterUnsold();
+        window.location.reload();
       }).catch(function(err) {
         console.log(err.message);
       });
@@ -98,7 +137,6 @@ App = {
       if (error) {
         console.log(error);
       }
-
       var account = accounts[0];
       App.contracts.PetShop.deployed().then(function(instance) {
         petShopInstance = instance;
@@ -107,8 +145,7 @@ App = {
       }).then(function(amount) {
         return petShopInstance.buyPet(petId, {from: account, value: amount});
       }).then(function(result) {
-        $('.panel-pet').eq(petId).find('.btn-buy').text('Success').attr('disabled', true);
-        return App.filterUnsold();
+        window.location.reload();
       }).catch(function(err) {
         console.log(err.message);
       });
@@ -137,8 +174,10 @@ App = {
 
           App.contracts.PetShop.deployed().then(function(instance) {
             petShopInstance = instance;
+            let price = BigInt(newData.price*10000);
+            price = price * 100000000000000n;
             return petShopInstance.registerPet(newData.name, parseInt(newData.age),
-                newData.breed, newData.location, url, newData.price, "10000000000000000", { from: account, gas: 320000, value: "10000000000000000"});
+                newData.breed, newData.location, url, price, "10000000000000000", { from: account, gas: 320000, value: "10000000000000000"});
           }).then(function(result) {
             alert("Added Successfully!");
             return petShopInstance.getCount.call();
@@ -154,30 +193,6 @@ App = {
       const petPic = document.getElementById("photo");
       reader.readAsArrayBuffer(petPic.files[0]);
     })
-  },
-
-  renderNewPet: function(newData, result){
-    var petsRow = $('#petsRow');
-    console.log(petsRow);
-    var petTemplate = $('#petTemplate');
-    petTemplate.find('.panel-title').text(newData.name);
-    petTemplate.find('img').attr('src', newData.picture);
-    petTemplate.find('.pet-breed').text(newData.breed);
-    petTemplate.find('.pet-age').text(newData.age);
-    petTemplate.find('.pet-location').text(newData.location);
-    if (newData.price > 0) {
-      petTemplate.find('.btn-buy').show();
-      petTemplate.find('.btn-adopt').hide();
-      petTemplate.find('.btn-buy').attr('data-id', result);
-    } else {
-      petTemplate.find('.btn-adopt').show();
-      petTemplate.find('.btn-buy').hide();
-      petTemplate.find('.btn-adopt').attr('data-id', result);
-    }
-    petTemplate.find('.pet-price').text(newData.price);
-
-    petsRow.append(petTemplate.html());
-    return bindEvents();
   },
 
   handleRegistration: function(event) {
