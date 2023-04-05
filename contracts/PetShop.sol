@@ -1,6 +1,8 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract PetShop {
+    address public owner;
+
     //struct of a pet's info, picture = ipfs url
     struct Pet {
         uint id;
@@ -20,6 +22,7 @@ contract PetShop {
 
     constructor() public {
         petCount = 0;
+        owner = msg.sender;
     }
 
     function registerPet(string memory _name, uint _age, string memory _breed, 
@@ -30,7 +33,7 @@ contract PetShop {
         return petCount;
     }
 
-    function buyPet(uint _id) public payable {
+    function buyPet(uint _id) external payable {
         require(_id >= 0 && _id<= petCount);
         Pet storage pet = pets[_id];
         require(!pet.isSold, "This pet is already sold");
@@ -39,7 +42,7 @@ contract PetShop {
         pet.owner = msg.sender;
     }
 
-    function adopt(uint _id) public returns (uint) {
+    function adopt(uint _id) external returns (uint) {
         require(_id >= 0 && _id <= petCount);
         Pet storage pet = pets[_id];
         require(!pet.isSold, "This pet is already adpoted");
@@ -48,7 +51,32 @@ contract PetShop {
         return _id;
     }
 
-    function getCount() view public returns (uint) {
+    function getCount() view external returns (uint) {
         return petCount;
+    }
+
+    // Retrieving one pet's details
+    function getPetDetails(uint petId) public view returns (uint, string memory, uint, string memory, string memory,
+        string memory, uint, bool, address) {
+        require(petId >= 0 && petId <= petCount);
+        Pet storage p = pets[petId];
+        return (p.id, p.name, p.age, p.breed, p.location, p.photo, p.price, p.isSold, p.owner);
+    }
+
+    // Retrieving one pet's price
+    function getPrice(uint petId) public view returns (uint) {
+        require(petId >= 0 && petId <= petCount);
+        Pet storage p = pets[petId];
+        return p.price;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+
+    function withdrawAll(address payable _to) external onlyOwner{
+        require(address(this).balance > 0, "empty balance");
+        _to.transfer(address(this).balance);
     }
 }

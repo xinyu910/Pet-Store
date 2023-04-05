@@ -16,6 +16,8 @@
     "lite-server": "^2.3.0"
   },
   "dependencies": {
-    "ipfs-cli": "^0.16.0"
+    "ethers": "^6.2.3",
+    "ipfs-cli": "^0.16.0",
+    "web3-utils": "^1.9.0"
   }
 }

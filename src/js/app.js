@@ -103,7 +103,9 @@ App = {
       App.contracts.PetShop.deployed().then(function(instance) {
         petShopInstance = instance;
         // Execute buy as a transaction by sending account
-        return petShopInstance.buyPet(petId, {from: account, value: 1e17});
+        return petShopInstance.getPrice(petId);
+      }).then(function(amount) {
+        return petShopInstance.buyPet(petId, {from: account, value: amount});
       }).then(function(result) {
         $('.panel-pet').eq(petId).find('.btn-buy').text('Success').attr('disabled', true);
         return App.filterUnsold();
@@ -136,34 +138,13 @@ App = {
           App.contracts.PetShop.deployed().then(function(instance) {
             petShopInstance = instance;
             return petShopInstance.registerPet(newData.name, parseInt(newData.age),
-                newData.breed, newData.location, url, newData.price, 1e16, { from: account, gas: 320000, value: 1e16});
+                newData.breed, newData.location, url, newData.price, "10000000000000000", { from: account, gas: 320000, value: "10000000000000000"});
           }).then(function(result) {
             alert("Added Successfully!");
             return petShopInstance.getCount.call();
           }).then(function(result){
             //not working here, reload should be in the load page (filter)
-            /*
-            var petsRow = $('#petsRow');
-            console.log(petsRow);
-            var petTemplate = $('#petTemplate');
-            petTemplate.find('.panel-title').text(newData.name);
-            petTemplate.find('img').attr('src', newData.picture);
-            petTemplate.find('.pet-breed').text(newData.breed);
-            petTemplate.find('.pet-age').text(newData.age);
-            petTemplate.find('.pet-location').text(newData.location);
-            if (newData.price > 0) {
-              petTemplate.find('.btn-buy').show();
-              petTemplate.find('.btn-adopt').hide();
-              petTemplate.find('.btn-buy').attr('data-id', result);
-            } else {
-              petTemplate.find('.btn-adopt').show();
-              petTemplate.find('.btn-buy').hide();
-              petTemplate.find('.btn-adopt').attr('data-id', result);
-            }
-            petTemplate.find('.pet-price').text(newData.price);
-
-            petsRow.append(petTemplate.html());
-            console.log(petsRow);*/
+            //App.renderNewPet(newData,result);
             window.location.replace("pets.html");
           }).catch(function(err) {
             console.log(err.message);
@@ -173,6 +154,30 @@ App = {
       const petPic = document.getElementById("photo");
       reader.readAsArrayBuffer(petPic.files[0]);
     })
+  },
+
+  renderNewPet: function(newData, result){
+    var petsRow = $('#petsRow');
+    console.log(petsRow);
+    var petTemplate = $('#petTemplate');
+    petTemplate.find('.panel-title').text(newData.name);
+    petTemplate.find('img').attr('src', newData.picture);
+    petTemplate.find('.pet-breed').text(newData.breed);
+    petTemplate.find('.pet-age').text(newData.age);
+    petTemplate.find('.pet-location').text(newData.location);
+    if (newData.price > 0) {
+      petTemplate.find('.btn-buy').show();
+      petTemplate.find('.btn-adopt').hide();
+      petTemplate.find('.btn-buy').attr('data-id', result);
+    } else {
+      petTemplate.find('.btn-adopt').show();
+      petTemplate.find('.btn-buy').hide();
+      petTemplate.find('.btn-adopt').attr('data-id', result);
+    }
+    petTemplate.find('.pet-price').text(newData.price);
+
+    petsRow.append(petTemplate.html());
+    return bindEvents();
   },
 
   handleRegistration: function(event) {
