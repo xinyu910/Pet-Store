@@ -8,6 +8,7 @@ contract PetShop {
         uint id;
         string name;
         uint age;
+        string sex;
         string breed;
         string location;
         string photo;
@@ -25,11 +26,11 @@ contract PetShop {
         owner = msg.sender;
     }
 
-    function registerPet(string memory _name, uint _age, string memory _breed, 
+    function registerPet(string memory _name, uint _age, string memory _sex, string memory _breed, 
     string memory _location, string memory _photo, uint _price, uint _fee) public payable returns (uint) {
         require(msg.value >= _fee, "Insufficient fee");
         petCount++;
-        pets[petCount] = Pet(petCount, _name, _age, _breed, _location, _photo, _price, false, address(0));
+        pets[petCount] = Pet(petCount, _name, _age, _sex, _breed, _location, _photo, _price, false, address(0));
         return petCount;
     }
 
@@ -57,10 +58,10 @@ contract PetShop {
 
     // Retrieving one pet's details
     function getPetDetails(uint petId) public view returns (uint, string memory, uint, string memory, string memory,
-        string memory, uint, bool, address) {
+        string memory, uint, bool, address, string memory) {
         require(petId >= 0 && petId <= petCount);
         Pet storage p = pets[petId];
-        return (p.id, p.name, p.age, p.breed, p.location, p.photo, p.price, p.isSold, p.owner);
+        return (p.id, p.name, p.age, p.breed, p.location, p.photo, p.price, p.isSold, p.owner, p.sex);
     }
 
     // Retrieving one pet's price

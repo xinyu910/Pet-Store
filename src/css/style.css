@@ -1,15 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.container {
+.index-container {
     position: relative;
     width: 100%;
     height: 100vh;
     background: linear-gradient(to right, #EBE3CC 0%, #EBE3CC 72%, #062D3E 72%, #062D3E 100%);
     overflow: hidden;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .frame {
@@ -54,102 +56,212 @@
 }
 
 .navbar {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 10vh;
-    background-color: inherit;
-    padding: 8vmin 11vmin;
-    z-index: 3;
+    position: relative;
   }
 
-  .navbar-logo {
-    font-size: 4vmin;
-    font-weight: bold;
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    color: #062D3E;
-    margin-right: 20vw;
-  }
+.container-fluid {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  background-color: inherit;
+  padding: 8vmin 11vmin;
+  z-index: 3;
+  justify-content: flex-start;
+  flex-direction: row;
+}
 
-  .navbar-links {
-    display: flex;
-    gap: 1.5vw;
-  }
+.navbar-logo {
+  font-size: 4vmin;
+  font-weight: bold;
+  font-family: 'Josefin Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #062D3E;
+  text-decoration: none;
+  margin-right: auto;
+}
 
-  .navbar-link {
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 2.4vmin;
-    letter-spacing: 0.01em;
-    color: #062D3E;
-    opacity: 0.88;
-    text-decoration: none;
-  }
+.navbar-links {
+  flex: 0 1 auto;
+  display: flex;
+  gap: 1.5vw;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-  .navbar-link:visited, .navbar-link:active {
-    text-decoration: none;
-  }
+.navbar-link {
+  font-family: 'Josefin Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2.4vmin;
+  letter-spacing: 0.01em;
+  color: #062D3E;
+  opacity: 0.88;
+  text-decoration: none;
+}
 
-  .navbar-link:hover {
-    text-decoration: none;
-    color: #010c10;
-  }
+.navbar-link:visited, .navbar-link:active,.navbar-logo:visited, .navbar-logo:active {
+  text-decoration: none;
+}
 
- 
+.navbar-link:hover, .navbar-logo:hover {
+  text-decoration: none;
+  opacity: 70%;
+}
 
-  .title-group {
-    position: absolute;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: column;
-    top: 17vh;
-    background-color: inherit;
-    padding: 0 11vmin;
-    font-family: 'Josefin Sans';
-  }
 
-  .frame2 {
-    margin-bottom: -5vmin;
-  }
+.title-group {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  top: 18vh;
+  background-color: inherit;
+  padding: 0 11vmin;
+  font-family: 'Josefin Sans', sans-serif;
+}
 
-  .title-group h1 {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12vmin;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-    color: #062D3E;
-  }
+.frame2 {
+  margin-bottom: -5vmin;
+}
 
-  #orange {
-    color: #ED5C01;
-  }
+.title-group h1 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12vmin;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #062D3E;
+}
 
-  .button-group {
-    margin-top: 3vh;
-    display: flex;
-    flex-direction: row;
-    gap: 4vw;
-    align-items: center;
-  }
+#orange {
+  color: #ED5C01;
+}
 
-  .button-group button {
-    width: 28vmin;
-    height: 8vmin;
-    border: none;
-    border-radius: 4vmin;
-    font-size: 2.8vmin;
-    background: #ED5C01;
-    color: #FCEFE2;
-    font-family: 'Neue Montreal';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2.6vmin;
-  }
- 
+.button-group {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: row;
+  gap: 4vw;
+  align-items: center;
+}
+
+.button-group button {
+  width: 29vmin;
+  height: 8.5vmin;
+  border: none;
+  border-radius: 4vmin;
+  font-size: 2.8vmin;
+  background: #ED5C01;
+  color: #FCEFE2;
+  font-family: 'Josefin Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2.5vmin;
+}
+
+/*form page styles*/
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #EBE3CC;
+  overflow: hidden;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.frame-11 {
+  position: absolute;
+  right: 0%;
+  bottom: 70%;
+  z-index: 2;
+  height: 25%;
+  width: auto;
+}
+
+.form-container {
+  top: -3vh;
+  position: relative;
+  margin: 0 auto 0 auto;
+  width: 40%;
+  background-color: transparent;
+  border: none;
+  overflow: hidden;
+}
+
+.dogs {
+  position: absolute;
+  width: 42vmin;
+  height: auto;
+  bottom: 0;
+  left: 11vmin;
+}
+
+.dog2 {
+  position: absolute;
+  width: 50vmin;
+  height: auto;
+  bottom: 0;
+  right: 10vmin;
+}
+
+.dog3 {
+  position: absolute;
+  width: 27vmin;
+  height: auto;
+  top: 15vmin;
+  left: 18vmin;
+  z-index: 1;
+}
+
+.dots {
+  position: absolute;
+  width: 32vmin;
+  height: auto;
+  top: 19vmin;
+  left: 4vmin;
+  z-index: 0;
+}
+
+.form-control {
+  background: #FBF2DA;
+  border: none;
+}
+
+input::file-selector-button {
+  background-color: #ED5C01;
+  color: #FCEFE2;
+  padding: 1.5vmin;
+  border: none;
+  border-radius: 0.5vmin;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.7vmin;
+}
+
+input::file-selector-button:hover, .btn:hover {
+  opacity: 70%;
+  cursor: pointer;
+  color: #FCEFE2;
+}
+
+.btn {
+  background-color: #ED5C01;
+  color: #FCEFE2;
+  border-radius: 1.5vmin;
+  border: none;
+  font-family: 'Josefin Sans', sans-serif;
+  width: 30vmin;
+  height: 6vmin;
+}
+
+.btn:visited {
+  border: none;
+}
+
+.buttonHolder {
+  text-align: center;
+}

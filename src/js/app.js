@@ -61,6 +61,7 @@ App = {
             instance.getPetDetails(i+1).then(function(pet){
               petTemplate.find('.panel-title').text(pet[1]);
               petTemplate.find('img').attr('src', pet[5]);
+              petTemplate.find('.pet-sex').text(pet[9]);
               petTemplate.find('.pet-breed').text(pet[3]);
               petTemplate.find('.pet-age').text(parseInt(pet[2]));
               petTemplate.find('.pet-location').text(pet[4]);
@@ -176,7 +177,7 @@ App = {
             petShopInstance = instance;
             let price = BigInt(newData.price*10000);
             price = price * 100000000000000n;
-            return petShopInstance.registerPet(newData.name, parseInt(newData.age),
+            return petShopInstance.registerPet(newData.name, parseInt(newData.age), newData.sex,
                 newData.breed, newData.location, url, price, "10000000000000000", { from: account, gas: 320000, value: "10000000000000000"});
           }).then(function(result) {
             alert("Added Successfully!");
@@ -200,6 +201,7 @@ App = {
     //check if the form is filled
     let cur_age = parseInt(document.querySelector('#age').value);
     let cur_name = document.querySelector('#name').value;
+    let cur_sex = document.querySelector('#sex').value;
     let cur_breed = document.querySelector('#breed').value;
     let cur_location = document.querySelector('#location').value;
     let cur_photo = document.querySelector('#photo').value;
@@ -218,6 +220,7 @@ App = {
       age: cur_age,
       breed: cur_breed,
       name: cur_name,
+      sex: cur_sex,
       location: cur_location,
       picture: cur_photo,
       isForSale: isForSale,
