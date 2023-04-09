@@ -1,3 +1,14 @@
+// class filter {
+//   constructor() {
+//     this.lowerAge;
+//     this.higherAge;
+//     this.lowerPrice;
+//     this.higherPrice;
+//     //0 is sold or adopted, 1 is avaliable, -1 means no restriction
+//     this.isSold;
+//   }
+// }
+// var filterInstance = new filter()
 App = {
   web3Provider: null,
   contracts: {},
@@ -57,50 +68,146 @@ App = {
       }
       let account = accounts[0];
       App.contracts.PetShop.deployed().then(function (instance) {
-        instance.getCount().then(function (petsNum) {
-          let count = parseInt(petsNum);
-          let array = [...Array(count).keys()];
-          array.forEach(i => {
-            instance.getPetDetails(i + 1).then(function (pet) {
-              petTemplate.find('.panel-title').text(pet[1]);
-              petTemplate.find('img').attr('src', pet[5]);
-              petTemplate.find('.pet-breed').text(pet[3]);
-              petTemplate.find('.pet-age').text(parseInt(pet[2]));
-              petTemplate.find('.pet-location').text(pet[4]);
-              let x = BigInt("100000000000000");
-              let price = Number(BigInt(pet[6]) / x) / 10000;
-              if (price > 0) {
-                petTemplate.find('.btn-buy').show();
-                petTemplate.find('.btn-adopt').hide();
-                petTemplate.find('.btn-buy').attr('data-id', pet[0]);
-                if (pet[7] === true) {
-                  petTemplate.find('.btn-buy').text('Sold').attr('disabled', true);
-                } else {
-                  petTemplate.find('.btn-buy').text('Buy').attr('disabled', false);
-                }
-              } else {
-                petTemplate.find('.btn-adopt').show();
-                petTemplate.find('.btn-buy').hide();
-                petTemplate.find('.btn-adopt').attr('data-id', pet[0]);
-                if (pet[7] === true) {
-                  petTemplate.find('.btn-adopt').text('Adopted').attr('disabled', true);
-                } else {
-                  petTemplate.find('.btn-adopt').text('Adopt').attr('disabled', false);
-                }
-              }
-              petTemplate.find('.pet-price').text(price);
+        instance.getFilters().then(function (filters) {
+          var c1, c2, c3, lowerAge, higherAge, lowerPrice, higherPrice, isSold;
+          let filterDiv = $('#filterShow');
+          filterDiv.find('.filterAge').text('Age: 0-3');
+          filterDiv.find('.filterPrice').text('Price: 0-0.1');
+          filterDiv.find('.filterStatus').text('Status: Avalible');
+          c1 = parseInt(filters[0]);
+          c2 = parseInt(filters[1]);
+          c3 = parseInt(filters[2]);
+          if (c1 === 0){
+            filterDiv.find('.filterAge').text('Age: Any');
+          }
+          else if(c1 === 1){
+            filterDiv.find('.filterAge').text('Age: 0-3');
+          }
+          else if(c1 === 2){
+            filterDiv.find('.filterAge').text('Age: 3-5');
+          }
+          else if(c1 === 3){
+            filterDiv.find('.filterAge').text('Age: 5-8');
+          }
+          else{
+            filterDiv.find('.filterAge').text('Age: >8');
+          }
 
-              petsRow.append(petTemplate.html());
+          if (c2 === 0){
+            filterDiv.find('.filterPrice').text('Price: Any');
+          }
+          else if(c2 === 1){
+            filterDiv.find('.filterPrice').text('Price: 0-0.1');
+          }
+          else if(c2 === 2){
+            filterDiv.find('.filterPrice').text('Price: 0.1-0.5');
+          }
+          else{
+            filterDiv.find('.filterPrice').text('Price: >0.5');
+          }
+
+          if (c3 === 0){
+            filterDiv.find('.filterStatus').text('Status: Any');
+          }
+          else if(c3 === 1){
+            filterDiv.find('.filterStatus').text('Status: Avaliable');
+          }
+          else{
+            filterDiv.find('.filterStatus').text('Status: Adopted or Sold');
+          }
+
+          if (parseInt(filters[3])===-1){
+            lowerAge = Number.NEGATIVE_INFINITY; 
+          }
+          else{
+            lowerAge = parseInt(filters[3]); 
+          }
+
+          if (parseInt(filters[4])===-1){
+            higherAge = Number.POSITIVE_INFINITY; 
+          }
+          else{
+            higherAge = parseInt(filters[4]); 
+          }
+
+          if (parseInt(filters[5])===-1){
+            lowerPrice = Number.NEGATIVE_INFINITY; 
+          }
+          else{
+            lowerPrice = parseInt(filters[5]); 
+          }
+
+          if (parseInt(filters[6])===-1){
+            higherPrice = Number.POSITIVE_INFINITY; 
+          }
+          else{
+            higherPrice = parseInt(filters[6]); 
+          }
+          isSold = parseInt(filters[7]);
+
+          instance.getCount().then(function (petsNum) {
+            let count = parseInt(petsNum);
+            console.log(count, 'count');
+            let array = [...Array(count).keys()];
+            array.forEach(i => {
+              instance.getPetDetails(i + 1).then(function (pet) {
+                petTemplate.find('.panel-title').text(pet[1]);
+                petTemplate.find('img').attr('src', pet[5]);
+                petTemplate.find('.pet-breed').text(pet[3]);
+                petTemplate.find('.pet-age').text(parseInt(pet[2]));
+                petTemplate.find('.pet-location').text(pet[4]);
+                let x = BigInt("100000000000000");
+                let price = Number(BigInt(pet[6]) / x) / 10000;
+                if (price > 0) {
+                  petTemplate.find('.btn-buy').show();
+                  petTemplate.find('.btn-adopt').hide();
+                  petTemplate.find('.btn-buy').attr('data-id', pet[0]);
+                  if (pet[7] === true) {
+                    petTemplate.find('.btn-buy').text('Sold').attr('disabled', true);
+                  } else {
+                    petTemplate.find('.btn-buy').text('Buy').attr('disabled', false);
+                  }
+                } else {
+                  petTemplate.find('.btn-adopt').show();
+                  petTemplate.find('.btn-buy').hide();
+                  petTemplate.find('.btn-adopt').attr('data-id', pet[0]);
+                  console.log(pet[7]);
+                  if (pet[7] === true) {
+                    petTemplate.find('.btn-adopt').text('Adopted').attr('disabled', true);
+                  } else {
+                    petTemplate.find('.btn-adopt').text('Adopt').attr('disabled', false);
+                  }
+                }
+                petTemplate.find('.pet-price').text(price);
+
+                priceForFilter = price*10;
+                console.log(c1, c2, c3, lowerAge, higherAge, lowerPrice, higherPrice, isSold, 'load');
+                console.log(count, 'count');
+                var flagShow = true;
+                if (parseInt(pet[2]) > higherAge || parseInt(pet[2]) < lowerAge){
+                  flagShow = false;
+                }
+                else if (priceForFilter > higherPrice || priceForFilter < lowerPrice){
+                  flagShow = false;
+                }
+
+                if (isSold !== -1){
+                  if (isSold === 0 && pet[7] === true){
+                    flagShow = false;
+                  }
+                  else if (isSold === 1 && pet[7] === false){
+                    flagShow = false;
+                  }
+                }
+                if (flagShow === true){
+                  petsRow.append(petTemplate.html());
+                }
+              });
             });
           });
         });
       });
     });
-
-  },
-
-  filterUnsold: function () {
-    console.log("mark");
   },
 
   bindEvents: function () {
@@ -111,21 +218,115 @@ App = {
     $(document).on('click', '.plus', App.handleAdd);
     $(document).on('click', '.minus', App.handleMinus);
     $(document).on('click', '.btn-buy-product', App.handleBuyProduct);
-    $(document).on('click', '#filter', App.filterPets);
+    $(document).on('click', '.filter', App.handleFilterPets);
+    $(document).on('click', '.resetFilter', App.handleFilterPetsReset);
   },
-  filterPets: function(){
+
+  handleFilterPets: function (event) {
+    event.preventDefault();
     var condition1 = $('#condition1').val();
     var condition2 = $('#condition2').val();
     var condition3 = $('#condition3').val();
-    var lowerAge = 0;
-    var higherAge = 100;
-    if(condition1 === '1'){
-      lowerAge = 1;
-      higherAge = 10;
-    }else{
-      lowerAge = 10;
+    var lowerAge, higherAge, lowerPrice, higherPrice, isSold;
+
+    if (condition1 === '1') {
+      lowerAge = 0;
+      higherAge = 3;
     }
+    else if (condition1 === '2') {
+      lowerAge = 3;
+      higherAge = 5;
+    }
+    else if (condition1 === '3') {
+      lowerAge = 5
+      higherAge = 8;
+    }
+    else if (condition1 === '4') {
+      lowerAge = 8;
+      higherAge = -1;
+    }
+    else {
+      lowerAge = -1;
+      higherAge = -1;
+    }
+
+    if (condition2 === '1') {
+      lowerPrice = 0;
+      higherPrice = 1;
+    }
+    else if (condition2 === '2') {
+      lowerPrice = 1;
+      higherPrice = 5;
+    }
+    else if (condition2 === '3') {
+      lowerPrice = 5;
+      higherPrice = -1;
+    }
+    else {
+      lowerPrice = -1;
+      higherPrice = -1;
+    }
+
+    if (condition3 === '1') {
+      isSold = 0;
+    }
+    else if (condition3 === '2') {
+      isSold = 1;
+    }
+    else {
+      isSold = -1;
+    }
+
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      let account = accounts[0];
+      App.contracts.PetShop.deployed().then(function (instance) {
+        petShopInstance = instance;
+        console.log(condition1*1, condition2*1, condition3*1, lowerAge, higherAge, lowerPrice, higherPrice, isSold);
+        return petShopInstance.setFilters(condition1*1, condition2*1, condition3*1, lowerAge, higherAge, lowerPrice, higherPrice, isSold, { from: account, value: 0 });
+      }).then(function (result) {
+        window.location.reload();
+      }).catch(function (err) {
+        console.log(err.message);
+      });
+    })
+
+    // filterInstance.lowerAge = lowerAge;
+    // filterInstance.higherAge = higherAge;
+    // filterInstance.lowerPrice = lowerPrice;
+    // filterInstance.higherPrice = higherPrice;
+    // filterInstance.isSold = isSold;
+    // console.log(filterInstance.lowerAge, filterInstance.higherAge, filterInstance.lowerPrice, filterInstance.higherPrice, isSold, 'filter');
+    // let filterDiv = $('#filter');
+    // filterDiv.find('.lowerAge').text(lowerAge);
+    // filterDiv.find('.higherAge').text(higherAge);
+    // filterDiv.find('.lowerPrice').text(lowerPrice);
+    // filterDiv.find('.higherPrice').text(higherPrice);
+    // filterDiv.find('.isSold').text(isSold);
+    // console.log(filterDiv.find('.lowerAge').text())
+    // window.location.reload(); 
   },
+
+  handleFilterPetsReset: function (event) {
+    event.preventDefault();
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      let account = accounts[0];
+      App.contracts.PetShop.deployed().then(function (instance) {
+        petShopInstance = instance;
+        return petShopInstance.setFilters(0, 0, 0, -1, -1, -1, -1, -1, { from: account, value: 0 });
+      }).then(function (result) {
+        window.location.reload();
+      }).catch(function (err) {
+        console.log(err.message);
+      });
+    })
+  },
+
   handleAdd: function (event) {
     let pId = parseInt($(event.target).data('id'));
     let plusObj = $('.panel-product').eq(pId).find('.count');
@@ -139,11 +340,9 @@ App = {
     if (minusObj.text() * 1 == 0) {
       minusObj.text(1);
     }
-
   },
   handleBuyProduct: function (event) {
     let pId = parseInt($(event.target).data('id'));
-    console.log("pId",pId);
     let amount = $('.panel-product').eq(pId).find('.count').text() * 1;
     web3.eth.getAccounts(function (error, accounts) {
 
@@ -151,7 +350,7 @@ App = {
         console.log(error);
       }
       let account = accounts[0];
-      App.contracts.PetShop.deployed().then(function(instance) {
+      App.contracts.PetShop.deployed().then(function (instance) {
         petShopInstance = instance;
         return petShopInstance.getProductPrice(pId);
       }).then(function (price) {
@@ -176,8 +375,8 @@ App = {
     var productNum = await instance.getProductCount();
     for (var i = 0; i < productNum; i++) {
       var data = await instance.getProductDetails(i);
-      console.log(i);
-      console.log(data[0]);
+      // console.log(i);
+      // console.log(data[0]);
       productTemplate.find('.panel-title').text(data[1]);
       productTemplate.find('img').attr('src', data[4]);
       productTemplate.find('.product-category').text(data[2]);

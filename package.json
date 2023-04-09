@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "ethers": "^6.2.3",
+    "fs": "^0.0.1-security",
     "ipfs-cli": "^0.16.0",
     "web3-utils": "^1.9.0"
   }

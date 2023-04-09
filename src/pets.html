@@ -34,13 +34,14 @@
         <div>
           <select class="form-select form-select-lg mb-3" style="width:200px;display:inline-block" id="condition1">
             <option value="0" selected>Select Age</option>
-            <option value="1">&lt;1</option>
-            <option value="2">1-10</option>
-            <option value="3">&gt;10</option>
+            <option value="1">&lt;3</option>
+            <option value="2">3-5</option>
+            <option value="3">&gt;5-8</option>
+            <option value="4">&gt;8</option>
           </select>&nbsp;
           <select class="form-select form-select-lg mb-3" style="width:200px;display:inline-block" id="condition2">
             <option value="0" selected>Select Pet Price</option>
-            <option value="1">&lt;0.1</option>
+            <option value="1">&lt;0-0.1</option>
             <option value="2">0.1-0.5</option>
             <option value="3">&gt;0.5</option>
           </select>&nbsp;
@@ -50,10 +51,18 @@
             <option value="2">Adopted or Sold</option>
           </select>&nbsp;&nbsp;
           <!-- <button type="button" id="filter" class="btn btn-primary btn-lg">&nbsp;&nbsp;Filter&nbsp;</button> -->
-          <button type="button" id="filter" class="btn btn-outline-primary" data-id="0">&nbsp;&nbsp;Filter&nbsp;&nbsp;</button>
+          <button type="button" class="btn btn-outline-primary filter" data-id="0">&nbsp;&nbsp;Filter&nbsp;&nbsp;</button>
+          <br/><br/>
+          <ul id="filterShow", class="list-inline text-center">
+            <strong>Current Filter Setting </strong>
+            <li class="list-inline-item filterAge">Age: Any</li>
+            <li class="list-inline-item filterPrice">Pet Price: Any</li>
+            <li class="list-inline-item filterStatus">Status: Any</li>
+            <button type="button" class="btn btn-outline-primary resetFilter">&nbsp;&nbsp;Reset Filter&nbsp;&nbsp;</button>
+          </ul>
         </div>
       </div>
-
+      <br/><br/><br/><br/><br/><br/><br/><br/>
       <div id="petsRow" class="row">
         <!-- PETS LOAD HERE -->
       </div>
@@ -74,11 +83,19 @@
             <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/>
             <strong>Price (ETH)</strong>: <span class="pet-price">1</span><br/><br/>
             <button class="btn btn-default btn-buy" type="button" data-id="0" style="display:none;">Buy</button>
+            <button class="btn btn-default btn-adopt" type="button" data-id="0" style="display:none;">Adopt</button>
             <!-- <button class="btn btn-default btn-adopt" type="button" data-id="0" style="display:none;">Adopt</button> -->
           </div>
         </div>
       </div>
-
+    </div>
+    <!-- <div id="filter" style="display: none;">
+      <span class="lowerAge">N_Inf</span>
+      <span class="higherAge">P_Inf</span>
+      <span class="lowerPrice">N_Inf</span>
+      <span class="higherPrice">P_Inf</span>
+      <span class="isSold">-1</span>
+    </div> -->
     <!--
     <div id="petTemplate" style="display: none;">
       <div class="col-sm-6 col-md-4 col-lg-3">

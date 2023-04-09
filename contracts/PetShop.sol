@@ -15,6 +15,7 @@ contract PetShop {
         bool isSold;
         address owner;
     }
+    
     struct Product {
         uint pId;
         string pName;
@@ -25,15 +26,29 @@ contract PetShop {
         uint stock;
     }
 
+    struct filter {
+      int conditionAge;
+      int conditionPrice;
+      int conditionStatus;
+      int lowerAge;
+      int higherAge;
+      int lowerPrice;
+      int higherPrice;
+      int isSold;
+    }
+
     mapping(uint => Pet) public pets;
     mapping(uint => Product) public products;
+    mapping(uint => filter) public filters;
 
     uint public petCount;
     uint public productCount;
+    uint public filterCount;
 
     constructor() public {
         petCount = 0;
         productCount = 0;
+        filterCount =0;
         owner = msg.sender;
         addProduct("Lamb & Brown Rice Recipe Dog Food","Food&Treats","Performatrin","images/product1.jpg",1*100000,1000);
         addProduct("Homestead Harvest Adult Cat Food","Food&Treats","ACANA","images/product2.jpg",2*100000,1000);
@@ -44,6 +59,7 @@ contract PetShop {
         addProduct("Wellness exams","Service","Pet Good Life","images/product7.jpg",2*100000,1000);
         addProduct("Vaccinations","Service","Pet Good Life","images/product8.jpg",2*100000,1000);
         addProduct("Teeth cleaning and dentistry","Service","Pet Good Life","images/product9.jpg",2*100000,1000);
+        setFilters(0,0,0,-1,-1,-1,-1,-1);
     }
 
     function addProduct(string memory pName, string memory pCategory, string memory pBrand, string memory picture, uint pPrice, uint stock) public returns (uint){
@@ -129,4 +145,14 @@ contract PetShop {
         _to.transfer(address(this).balance);
     }
 
+    function setFilters(int conditionAge, int conditionPrice, int conditionStatus, int lowerAge, int higherAge, int lowerPrice, int higherPrice, int isSold) public payable returns (uint){
+        filterCount++;
+        filters[filterCount] = filter(conditionAge, conditionPrice, conditionStatus, lowerAge, higherAge, lowerPrice, higherPrice, isSold);
+        return filterCount;
+    }
+
+    function getFilters() public view returns (int, int, int, int, int, int, int, int){
+        filter storage f = filters[filterCount];
+        return (f.conditionAge, f.conditionPrice, f.conditionStatus, f.lowerAge, f.higherAge, f.lowerPrice, f.higherPrice, f.isSold);
+    }
 }
