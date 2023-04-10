@@ -45,7 +45,7 @@ App = {
       var condition3 = sessionStorage.getItem('condition3');
       var condition4 = sessionStorage.getItem('condition4');
       if (condition1 === null && condition2 === null && condition3 === null && condition4 === null) {
-        App.loadPages1("0", "0", "0", "0");
+        App.loadPages("0", "0", "0", "0");
       } else {
         console.log(condition1, condition2, condition3, condition4);
         $('#condition1').val(condition1);
@@ -231,6 +231,14 @@ App = {
               }
             });
           });
+        }).then(function (result) {
+          return instance.getAdmin();
+        }).then(function (admin) {
+          if (admin === account) {
+            $('.product-show').show();
+          }
+        }).catch(function (err) {
+          console.log(err.message);
         });
       });
     });
@@ -238,10 +246,10 @@ App = {
 
 
   bindEvents: function () {
-    console.log("bind");
     $(document).on('click', '.btn-adopt', App.handleAdopt);
     $(document).on('click', '.btn-buy', App.handleBuy);
     $(document).on('submit', '.add-form', App.handleRegistration);
+    $(document).on('submit', '.add-product-form', App.handleAddProduct);
     $(document).on('click', '.plus', App.handleAdd);
     $(document).on('click', '.minus', App.handleMinus);
     $(document).on('click', '.btn-buy-product', App.handleBuyProduct);
@@ -267,21 +275,35 @@ App = {
   handleAdd: function (event) {
     let pId = parseInt($(event.target).data('id'));
     let plusObj = $('.panel-product').eq(pId).find('.count');
+    let amount = $('.panel-product').eq(pId).find('.product-stock').text() * 1;
     plusObj.text(parseInt(plusObj.text()) + 1);
+    if (plusObj.text() * 1 > amount) {
+      if (amount === 0) {
+        plusObj.text(1);
+      } else {
+        plusObj.text(amount);
+      }
+
+    }
 
   },
   handleMinus: function (event) {
     let pId = parseInt($(event.target).data('id'));
     let minusObj = $('.panel-product').eq(pId).find('.count');
     minusObj.text(parseInt(minusObj.text()) - 1);
-    if (minusObj.text() * 1 == 0) {
+    if (minusObj.text() * 1 <= 0) {
       minusObj.text(1);
     }
   },
   handleBuyProduct: function (event) {
+    let pId = parseInt($(event.target).data('id'));
+    let amount = $('.panel-product').eq(pId).find('.count').text() * 1;
+    let stock = $('.panel-product').eq(pId).find('.product-stock').text() * 1;
+    if (amount > stock) {
+      alert("Stock is not enough!");
+      return;
+    }
     if (confirm("Are you sure?")) {
-      let pId = parseInt($(event.target).data('id'));
-      let amount = $('.panel-product').eq(pId).find('.count').text() * 1;
       web3.eth.getAccounts(function (error, accounts) {
 
         if (error) {
@@ -307,12 +329,14 @@ App = {
   },
 
   renderProduct: async function () {
+    console.log('renderProduct');
     var productsRow = $('#productsRow');
     productsRow.empty();
     var productTemplate = $('#productTemplate');
     // var account = await web3.eth.getAccounts();
     var instance = await App.contracts.PetShop.deployed();
     var productNum = await instance.getProductCount();
+    console.log('productNum:', productNum);
     for (var i = 0; i < productNum; i++) {
       var data = await instance.getProductDetails(i);
       productTemplate.find('.panel-title').text(data[1]);
@@ -376,6 +400,68 @@ App = {
         console.log(err.message);
       });
     });
+  },
+  handleAddProduct: function (event) {
+    event.preventDefault();
+    //check if the form is filled
+    let product_name = document.querySelector('#product_name').value;
+    let product_stock = document.querySelector('#product_stock').value * 1;
+    let product_category = document.querySelector('#product_category').value;
+    let product_brand = document.querySelector('#product_brand').value;
+    let product_photo = document.querySelector('#product_photo').value;
+    let product_price = parseFloat(document.querySelector('#product_price').value).toFixed(2);
+    if ((product_name.length == 0 || product_stock < 0 || product_brand.length == 0 ||
+      product_category.length == 0 || product_photo.length == 0 || product_price < 0)) {
+      alert("Please enter all the field values");
+    }
+    var Product = {
+      name: product_name,
+      brand: product_brand,
+      stock: product_stock,
+      categoty: product_category,
+      photo: product_photo,
+      price: product_price
+    }
+    console.log(product_name, product_brand, product_stock, product_category, product_photo, product_price);
+    return App.registerProduct(Product);
+
+  },
+  registerProduct: function (product) {
+    var petShopInstance;
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      var account = accounts[0];
+      console.log(account);
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const ipfs = window.IpfsApi('localhost', 5001)
+        const buf = buffer.Buffer(reader.result)
+        ipfs.files.add(buf, (err, result) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          var url = `https://ipfs.io/ipfs/${result[0].hash}`;
+
+          App.contracts.PetShop.deployed().then(function (instance) {
+            petShopInstance = instance;
+            let price = product.price * 1000000;
+            return petShopInstance.addProduct(product.name, product.categoty, product.brand, url, price, product.stock, { from: account, gas: 320000, value: "10000000000000000" });
+          }).then(function (result) {
+            alert("Added Successfully!");
+            return petShopInstance.getProductCount.call();
+          }).then(function (result) {
+            window.location.replace("goods.html");
+          }).catch(function (err) {
+            console.log(err.message);
+          });
+        })
+      }
+      const productPhoto = document.getElementById("product_photo");
+      reader.readAsArrayBuffer(productPhoto.files[0]);
+    })
   },
 
   /////////REGISTERATION /////////////

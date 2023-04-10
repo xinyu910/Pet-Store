@@ -59,57 +59,48 @@
     <img class="dog3" src=" images/dog3.png"/>
     <img class="dots" src=" images/dots.png"/>
     <div class="form-container">
-      <h3 class="text-center mb-4">Pet Registration Form</h3>
+      <h3 class="text-center mb-4">Product Form</h3>
       <br>
-      <form class="add-form" enctype="multipart/form-data">
+      <form class="add-product-form" enctype="multipart/form-data">
         <div class="row">
           <div class="form-group col-sm-6">
-            <label for="name">Pet Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter pet name" required>
+            <label for="product_name">Product Name</label>
+            <input type="text" class="form-control" id="product_name" placeholder="Enter Product name" required>
           </div>
           <div class="form-group col-sm-6">
-            <label for="age">Pet Age</label>
-            <input type="number" class="form-control" id="age" min="0" max="32" placeholder="Enter pet age" required>
+            <label for="product_stock">Product Stock</label>
+            <input type="number" class="form-control" id="product_stock" min="0" placeholder="Enter product stock" required>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-sm-6">
-            <label for="sex">Sex</label>
-            <select class="form-control" id="sex" required>
-              <option value="Female">Female</option>
-              <option value="Male">Male</option>
+            <label for="product_category">Product Category</label>
+            <select class="form-control" id="product_category" required>
+              <option value="Food&Treats">Food&Treats</option>
+              <option value="Litter&Accessories">Litter&Accessories</option>
+              <option value="Supplies">Supplies</option>
+              <option value="Service">Service</option>
             </select>
           </div>
           <div class="form-group col-sm-6">
-            <label for="breed">Pet Breed</label>
-            <input type="text" class="form-control" id="breed" placeholder="Enter pet breed" required>
+            <label for="product_brand">Product Brand</label>
+            <input type="text" class="form-control" id="product_brand" placeholder="Enter product brand" required>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-sm-6">
-            <label for="location">Pet Location</label>
-            <input type="text" class="form-control" id="location" placeholder="Enter pet location" required>
-          </div>
-          <div class="form-group col-sm-6">
-            <label for="photo">Pet Photo</label>
+            <label for="product_photo">Product Photo</label>
             <br>
-            <input type="file" class="form-control-file" id="photo" required>
+            <input type="file" class="form-control-file" id="product_photo" required>
           </div>
         </div>
         
-        <div class="form-group" id ="sale-hide">
-          <label for="sale">For Sale or For Adoption?</label>
-          <select class="form-control" id="sale" required>
-            <option value="sale">For Sale</option>
-            <option value="adoption">For Adoption</option>
-          </select>
-        </div>
         <div class="form-group" id="hide-price">
-          <label for="price">Pet Price (ETH)</label>
-          <input type="number" step="0.01" class="form-control" id="price" min="0" placeholder="Enter price" required>
+          <label for="product_price">Product Price (ETH)</label>
+          <input type="number" step="0.01" class="form-control" id="product_price" min="0" placeholder="Enter price" required>
         </div>
         <div class="buttonHolder">
-          <button type="submit" class="btn">Register Pet</button>
+          <button type="submit" class="btn">Add Product</button>
         </div>
       </form>
     </div>

@@ -2,6 +2,7 @@ pragma solidity >=0.4.22 <0.9.0;
 
 contract PetShop {
     address public owner;
+    address private _admin;
 
     //struct of a pet's info, picture = ipfs url
     struct Pet {
@@ -37,6 +38,7 @@ contract PetShop {
         petCount = 0;
         productCount = 0;
         owner = msg.sender;
+        _admin = msg.sender;
         addProduct("Lamb & Brown Rice Recipe Dog Food","Food&Treats","Performatrin","images/product1.jpg",1*100000,1000);
         addProduct("Homestead Harvest Adult Cat Food","Food&Treats","ACANA","images/product2.jpg",2*100000,1000);
         addProduct("Grey & White Hooded Litter Box","Litter&Accessories","Savic","images/product3.jpg",2*100000,1000);
@@ -48,7 +50,7 @@ contract PetShop {
         addProduct("Teeth cleaning and dentistry","Service","Pet Good Life","images/product9.jpg",2*100000,1000);
     }
 
-    function addProduct(string memory pName, string memory pCategory, string memory pBrand, string memory picture, uint pPrice, uint stock) public returns (uint){
+    function addProduct(string memory pName, string memory pCategory, string memory pBrand, string memory picture, uint pPrice, uint stock) public payable onlyAdmin returns (uint){
         require (pPrice > 0,"unsatisfied price");
         require (stock >= 0,"unsatisfied stock");
         products[productCount] = Product(productCount, pName, pCategory, pBrand, picture, pPrice, stock);
@@ -123,6 +125,19 @@ contract PetShop {
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
         _;
+    }
+    modifier onlyAdmin() {
+        require(msg.sender == _admin,"You are not admin");
+        _;
+    }
+    // function isAdmin() public view returns (bool){
+    //     return _admin == msg.sender;
+    // }
+    // function getSender() public view returns (address){
+    //     return msg.sender;
+    // }
+    function getAdmin() public view returns (address){
+        return _admin;
     }
 
     function withdrawAll(address payable _to) external onlyOwner{
