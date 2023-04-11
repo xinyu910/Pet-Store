@@ -39,15 +39,15 @@ contract PetShop {
         productCount = 0;
         owner = msg.sender;
         _admin = msg.sender;
-        addProduct("Brown Rice Recipe Dog Food","Food&Treats","Performatrin","images/product1.jpg",1*100000,1000);
-        addProduct("Homestead Harvest Cat Food","Food&Treats","ACANA","images/product2.jpg",2*100000,1000);
-        addProduct("Grey & White Hooded Litter Box","Litter&Accessories","Savic","images/product3.jpg",2*100000,1000);
-        addProduct("Giant Litter Scoop","Litter&Accessories","Van Ness","images/product4.jpg",2*100000,1000);
-        addProduct("NatureMates Bird Teaser","Supplies","Jump","images/product5.jpg",2*100000,1000);
-        addProduct("Felix Hammock Cat Condo","Supplies","Jump","images/product6.jpg",2*100000,1000);
-        addProduct("Wellness exams","Service","Pet Good Life","images/product7.jpg",2*100000,1000);
-        addProduct("Vaccinations","Service","Pet Good Life","images/product8.jpg",2*100000,1000);
-        addProduct("Teeth cleaning and dentistry","Service","Pet Good Life","images/product9.jpg",2*100000,1000);
+        addProduct("Brown Rice Recipe Dog Food","Food&Treats","Performatrin","images/product1.jpg",1*10000,1000);
+        addProduct("Homestead Harvest Cat Food","Food&Treats","ACANA","images/product2.jpg",2*10000,200);
+        addProduct("Grey & White Hooded Litter Box","Litter&Accessories","Savic","images/product3.jpg",2*10000,20);
+        addProduct("Giant Litter Scoop","Litter&Accessories","Van Ness","images/product4.jpg",2*10000,66);
+        addProduct("NatureMates Bird Teaser","Supplies","Jump","images/product5.jpg",5*1000,88);
+        addProduct("Felix Hammock Cat Condo","Supplies","Jump","images/product6.jpg",2*10000,500);
+        addProduct("Wellness exams","Service","Pet Good Life","images/product7.jpg",2*100000,8888);
+        addProduct("Vaccinations","Service","Pet Good Life","images/product8.jpg",2*10000,3);
+        addProduct("Teeth cleaning and dentistry","Service","Pet Good Life","images/product9.jpg",6*10000,17);
     }
 
     function addProduct(string memory pName, string memory pCategory, string memory pBrand, string memory picture, uint pPrice, uint stock) public payable onlyAdmin returns (uint){

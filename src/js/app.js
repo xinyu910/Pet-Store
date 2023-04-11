@@ -187,13 +187,14 @@ App = {
               }
               //filter price
               console.log(typeof (price));
+              console.log(condition2, price);
               if (condition2 !== "0") {
                 var lowerPrice;
                 var higherPrice;
                 if (condition2 === "1") {
                   lowerPrice = 0;
                   higherPrice = 0.1;
-                } else if (condition1 === "2") {
+                } else if (condition2 === "2") {
                   lowerPrice = 0.1;
                   higherPrice = 0.5;
                 } else {
@@ -409,7 +410,7 @@ App = {
     let product_category = document.querySelector('#product_category').value;
     let product_brand = document.querySelector('#product_brand').value;
     let product_photo = document.querySelector('#product_photo').value;
-    let product_price = parseFloat(document.querySelector('#product_price').value).toFixed(2);
+    let product_price = parseFloat(document.querySelector('#product_price').value).toFixed(3);
     if ((product_name.length == 0 || product_stock < 0 || product_brand.length == 0 ||
       product_category.length == 0 || product_photo.length == 0 || product_price < 0)) {
       alert("Please enter all the field values");
