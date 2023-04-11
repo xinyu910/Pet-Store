@@ -126,7 +126,7 @@ App = {
       }
       let account = accounts[0];
       App.contracts.PetShop.deployed().then(function (instance) {
-        instance.getCount().then(function (petsNum) {
+        return instance.getCount().then(function (petsNum) {
           let count = parseInt(petsNum);
           console.log(count, 'count');
           let array = [...Array(count).keys()];
@@ -237,6 +237,8 @@ App = {
         }).then(function (admin) {
           if (admin === account) {
             $('.product-show').show();
+            $('#hide-price').show();
+            $('#sale-hide').show();
           }
         }).catch(function (err) {
           console.log(err.message);
@@ -449,7 +451,7 @@ App = {
           App.contracts.PetShop.deployed().then(function (instance) {
             petShopInstance = instance;
             let price = product.price * 1000000;
-            return petShopInstance.addProduct(product.name, product.categoty, product.brand, url, price, product.stock, { from: account, gas: 320000, value: "10000000000000000" });
+            return petShopInstance.addProduct(product.name, product.categoty, product.brand, url, price, product.stock, { from: account, gas: 320000});
           }).then(function (result) {
             alert("Added Successfully!");
             return petShopInstance.getProductCount.call();
@@ -487,17 +489,21 @@ App = {
 
           App.contracts.PetShop.deployed().then(function (instance) {
             petShopInstance = instance;
+            return instance.getAdmin();
+          }).then(function (admin) {
             let price = BigInt(newData.price * 10000);
             price = price * 100000000000000n;
-            return petShopInstance.registerPet(newData.name, parseInt(newData.age), newData.sex,
+            if (admin === account) {
+              return petShopInstance.registerPetAdmin(newData.name, parseInt(newData.age), newData.sex,
+              newData.breed, newData.location, url, price, {from: account, gas: 320000});
+            } else {
+              return petShopInstance.registerPet(newData.name, parseInt(newData.age), newData.sex,
               newData.breed, newData.location, url, price, "10000000000000000", { from: account, gas: 320000, value: "10000000000000000" });
+            }
           }).then(function (result) {
-
             alert("Added Successfully!");
             return petShopInstance.getCount.call();
           }).then(function (result) {
-            //not working here, reload should be in the load page (filter)
-            //App.renderNewPet(newData,result);
             window.location.replace("pets.html");
           }).catch(function (err) {
             console.log(err.message);

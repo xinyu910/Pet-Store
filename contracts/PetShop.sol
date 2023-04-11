@@ -50,7 +50,7 @@ contract PetShop {
         addProduct("Teeth cleaning and dentistry","Service","Pet Good Life","images/product9.jpg",6*10000,17);
     }
 
-    function addProduct(string memory pName, string memory pCategory, string memory pBrand, string memory picture, uint pPrice, uint stock) public payable onlyAdmin returns (uint){
+    function addProduct(string memory pName, string memory pCategory, string memory pBrand, string memory picture, uint pPrice, uint stock) public onlyAdmin returns (uint){
         require (pPrice > 0,"unsatisfied price");
         require (stock >= 0,"unsatisfied stock");
         products[productCount] = Product(productCount, pName, pCategory, pBrand, picture, pPrice, stock);
@@ -60,6 +60,13 @@ contract PetShop {
     function registerPet(string memory _name, uint _age, string memory _sex, string memory _breed, 
     string memory _location, string memory _photo, uint _price, uint _fee) public payable returns (uint) {
         require(msg.value >= _fee, "Insufficient fee");
+        petCount++;
+        pets[petCount] = Pet(petCount, _name, _age, _sex, _breed, _location, _photo, _price, false, address(0));
+        return petCount;
+    }
+
+    function registerPetAdmin(string memory _name, uint _age, string memory _sex, string memory _breed, 
+    string memory _location, string memory _photo, uint _price) public onlyAdmin returns (uint) {
         petCount++;
         pets[petCount] = Pet(petCount, _name, _age, _sex, _breed, _location, _photo, _price, false, address(0));
         return petCount;
