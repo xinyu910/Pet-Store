@@ -512,7 +512,7 @@ App = {
   handleRegistration: function (event) {
     event.preventDefault();
     //check if the form is filled
-    let cur_age = parseInt(document.querySelector('#age').value);
+    let cur_age = parseInt(Math.round(document.querySelector('#age').value));
     let cur_name = document.querySelector('#name').value;
     let cur_sex = document.querySelector('#sex').value;
     let cur_breed = document.querySelector('#breed').value;

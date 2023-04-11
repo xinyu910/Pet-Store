@@ -355,3 +355,12 @@ input::file-selector-button:hover, .register-btn:hover {
 .btn:visited .resetFilter:visited, .filter:visited {
   border: none;
 }
+
+.union {
+  position: absolute;
+  width: 40vmin;
+  height: auto;
+  top: 30vmin;
+  left: 13vmin;
+  z-index: 1;
+}
