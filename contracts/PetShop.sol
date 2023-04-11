@@ -39,8 +39,8 @@ contract PetShop {
         productCount = 0;
         owner = msg.sender;
         _admin = msg.sender;
-        addProduct("Lamb & Brown Rice Recipe Dog Food","Food&Treats","Performatrin","images/product1.jpg",1*100000,1000);
-        addProduct("Homestead Harvest Adult Cat Food","Food&Treats","ACANA","images/product2.jpg",2*100000,1000);
+        addProduct("Brown Rice Recipe Dog Food","Food&Treats","Performatrin","images/product1.jpg",1*100000,1000);
+        addProduct("Homestead Harvest Cat Food","Food&Treats","ACANA","images/product2.jpg",2*100000,1000);
         addProduct("Grey & White Hooded Litter Box","Litter&Accessories","Savic","images/product3.jpg",2*100000,1000);
         addProduct("Giant Litter Scoop","Litter&Accessories","Van Ness","images/product4.jpg",2*100000,1000);
         addProduct("NatureMates Bird Teaser","Supplies","Jump","images/product5.jpg",2*100000,1000);

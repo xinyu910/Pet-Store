@@ -133,7 +133,7 @@ App = {
           array.forEach(i => {
             instance.getPetDetails(i + 1).then(function (pet) {
               petTemplate.find('.panel-title').text(pet[1]);
-              petTemplate.find('img').attr('src', pet[5]);
+              petTemplate.find('.image').attr('src', pet[5]);
               petTemplate.find('.pet-sex').text(pet[9]);
               petTemplate.find('.pet-breed').text(pet[3]);
               petTemplate.find('.pet-age').text(parseInt(pet[2]));
@@ -340,7 +340,7 @@ App = {
     for (var i = 0; i < productNum; i++) {
       var data = await instance.getProductDetails(i);
       productTemplate.find('.panel-title').text(data[1]);
-      productTemplate.find('img').attr('src', data[4]);
+      productTemplate.find('.image').attr('src', data[4]);
       productTemplate.find('.product-category').text(data[2]);
       productTemplate.find('.product-brand').text(data[3]);
       productTemplate.find('.product-name').text(data[1]);

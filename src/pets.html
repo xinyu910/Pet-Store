@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Pet Shop</title>
+    <title>Our Pets</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <script src="https://bundle.run/buffer@5.2.1"></script>
     <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
             integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
@@ -16,65 +17,97 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/holder.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Pet Shop</h1>
-          <hr/>
-          <br/>
+    <div class="pet-container">
+      <nav class="navbar sticky-top">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <div class="navbar-header">
+                <a href="index.html" class="navbar-logo navbar-brand">Pet-First</a> 
+            </div>
+    
+            <!-- Nav links -->
+            <div class="navbar-links nav navbar-nav">
+                <a href="index.html" class="navbar-link">Home</a>
+                <a href="pets.html" class="navbar-link active">Our Pets</a>
+                <a href="form.html" class="navbar-link">Register Your Pet</a>
+                <a href="goods.html" class="navbar-link">Our Products</a>
+                <a href="form_product.html" class="navbar-link product-show" style="display:none;">Add Products</a>
+            </div>
         </div>
+      </nav>
+      <div class="text-center">
+        <select class="form-select form-select-lg mb-3" id="condition1">
+          <option value="0" >Select Age</option>
+          <option value="1">&lt;3</option>
+          <option value="2">3-5</option>
+          <option value="3">5-8</option>
+          <option value="4">&gt;8</option>
+        </select>&nbsp;
+        <select class="form-select form-select-lg mb-3" id="condition2">
+          <option value="0" selected>Select Pet Price</option>
+          <option value="1">&lt;0.1</option>
+          <option value="2">0.1-0.5</option>
+          <option value="3">&gt;0.5</option>
+        </select>&nbsp;
+        <select class="form-select form-select-lg mb-3" id="condition3">
+          <option value="0" selected>Select Status</option>
+          <option value="1">Salable or Adoptable</option>
+          <option value="2">Salable</option>
+          <option value="3">Adoptable</option>
+          <option value="4">Adopted or Sold</option>
+        </select>&nbsp;
+        <select class="form-select form-select-lg mb-3" id="condition4">
+          <option value="0" selected>Select Sex</option>
+          <option value="1">Female</option>
+          <option value="2">Male</option>
+        </select>&nbsp;&nbsp;
+        <!-- <button type="button" id="filter" class="btn btn-primary btn-lg">&nbsp;&nbsp;Filter&nbsp;</button> -->
+        <button type="button" class="btn-outline-primary filter" data-id="0">&nbsp;&nbsp;Filter&nbsp;&nbsp;</button>
+        <br/><br/>
+        <ul id="filterShow", class="list-inline text-center">
+          <strong>Current Filter Setting </strong>
+          <li class="list-inline-item filterAge">Age: Any</li>
+          <li class="list-inline-item filterPrice">Pet Price: Any</li>
+          <li class="list-inline-item filterStatus">Status: Any</li>
+          <li class="list-inline-item filterSex">Sex: Any</li>
+          <button type="button" class="btn-outline-primary resetFilter">&nbsp;&nbsp;Reset&nbsp;&nbsp;</button>
+        </ul>
       </div>
-      </div>
-        <div class="text-center">
-          <select class="form-select form-select-lg mb-3" style="width:200px;display:inline-block" id="condition1">
-            <option value="0" >Select Age</option>
-            <option value="1">&lt;3</option>
-            <option value="2">3-5</option>
-            <option value="3">5-8</option>
-            <option value="4">&gt;8</option>
-          </select>&nbsp;
-          <select class="form-select form-select-lg mb-3" style="width:200px;display:inline-block" id="condition2">
-            <option value="0" selected>Select Pet Price</option>
-            <option value="1">&lt;0.1</option>
-            <option value="2">0.1-0.5</option>
-            <option value="3">&gt;0.5</option>
-          </select>&nbsp;
-          <select class="form-select form-select-lg mb-3" style="width:200px;display:inline-block" id="condition3">
-            <option value="0" selected>Select Status</option>
-            <option value="1">Salable or Adoptable</option>
-            <option value="2">Salable</option>
-            <option value="3">Adoptable</option>
-            <option value="4">Adopted or Sold</option>
-          </select>&nbsp;
-          <select class="form-select form-select-lg mb-3" style="width:200px;display:inline-block" id="condition4">
-            <option value="0" selected>Select Sex</option>
-            <option value="1">Female</option>
-            <option value="2">Male</option>
-          </select>&nbsp;&nbsp;
-          <!-- <button type="button" id="filter" class="btn btn-primary btn-lg">&nbsp;&nbsp;Filter&nbsp;</button> -->
-          <button type="button" class="btn btn-outline-primary filter" data-id="0">&nbsp;&nbsp;Filter&nbsp;&nbsp;</button>
-          <br/><br/>
-          <ul id="filterShow", class="list-inline text-center">
-            <strong>Current Filter Setting </strong>
-            <li class="list-inline-item filterAge">Age: Any</li>
-            <li class="list-inline-item filterPrice">Pet Price: Any</li>
-            <li class="list-inline-item filterStatus">Status: Any</li>
-            <li class="list-inline-item filterSex">Sex: Any</li>
-            <button type="button" class="btn btn-outline-primary resetFilter">&nbsp;&nbsp;Reset Filter&nbsp;&nbsp;</button>
-          </ul>
-        </div>
-      <br/><br/><br/><br/><br/><br/><br/><br/>
+      <br>
       <div id="petsRow" class="row">
         <!-- PETS LOAD HERE -->
       </div>
     </div>
 
+    <div id="petTemplate" style="display: none;">
+      <div class="col-sm-6 col-md-4 col-lg-3 pet-frame">
+        <div class="panel-title">
+          Scrappy
+        </div>
+      <div class="panel-body">
+        <div style="text-align: center;">
+          <img alt="160x160" data-src="holder.js/160x160" class="image img-center" src="images/golden-retriever.jpeg" 
+          data-holder-rendered="true">
+        </div>
+        <br/>
+        <strong>Sex</strong>: <span class="pet-sex">Female</span><br/>
+        <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
+        <strong>Age</strong>: <span class="pet-age">3</span><br/>
+        <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/>
+        <strong>Price (ETH)</strong>: <span class="pet-price">1</span><br/><br/>
+        <button class="btn btn-default btn-buy" type="button" data-id="0" style="display:none;">Buy</button>
+        <button class="btn btn-default btn-adopt" type="button" data-id="0" style="display:none;">Adopt</button>
+      </div>
+    </div>
+    
+    <!--
     <div id="petTemplate" style="display: none;">
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-pet">
@@ -92,9 +125,10 @@
             <strong>Price (ETH)</strong>: <span class="pet-price">1</span><br/><br/>
             <button class="btn btn-default btn-buy" type="button" data-id="0" style="display:none;">Buy</button>
             <button class="btn btn-default btn-adopt" type="button" data-id="0" style="display:none;">Adopt</button>
-            <!-- <button class="btn btn-default btn-adopt" type="button" data-id="0" style="display:none;">Adopt</button> -->
           </div>
         </div>
       </div>
+    </div>
+    -->
 </body>
 </html>

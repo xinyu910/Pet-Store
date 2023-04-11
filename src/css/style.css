@@ -112,6 +112,14 @@
   opacity: 70%;
 }
 
+.navbar-links > .active {
+  background-image: url(../images/frame-10.png);
+  background-size: 140% 100%;
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 
 .title-group {
   position: absolute;
@@ -172,6 +180,7 @@
   background: #EBE3CC;
   overflow: hidden;
   font-family: 'Josefin Sans', sans-serif;
+  color: #062D3E;
 }
 
 .frame-11 {
@@ -242,13 +251,13 @@ input::file-selector-button {
   font-size: 1.7vmin;
 }
 
-input::file-selector-button:hover, .btn:hover {
+input::file-selector-button:hover, .register-btn:hover {
   opacity: 70%;
   cursor: pointer;
   color: #FCEFE2;
 }
 
-.btn {
+.register-btn {
   background-color: #ED5C01;
   color: #FCEFE2;
   border-radius: 1.5vmin;
@@ -258,10 +267,91 @@ input::file-selector-button:hover, .btn:hover {
   height: 6vmin;
 }
 
-.btn:visited {
+.register-btn:visited {
   border: none;
 }
 
 .buttonHolder {
   text-align: center;
+}
+
+/*pets page styles*/
+.pet-container, .goods-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #EBE3CC;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #062D3E;
+}
+
+.form-select {
+  background: #FBF2DA;
+  border: none;
+  width: 13vw;
+  height: 5.5vh;
+  display:inline-block;
+  padding: 1.5vmin;
+}
+
+.resetFilter, .filter {
+  background-color: #ED5C01;
+  color: #FCEFE2;
+  border-radius: 1.5vmin;
+  border: none;
+  font-family: 'Josefin Sans', sans-serif;
+  width: 6vw;
+  height: 5.5vh;
+}
+
+#petsRow, #productsRow {
+  padding: 0 11vmin;
+}
+
+.pet-frame, .goods-frame {
+  display: flex;
+  flex-direction: column;
+  background-image: url(../images/vector-1.png);
+  background-size: 100% 100%;
+  padding: 5vmin 3.6vmin 8vmin 3.6vmin;
+  background-origin: padding-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2vmin double;
+  border-color: transparent;
+}
+
+.image {
+  width: 100%; 
+  height: auto; 
+  aspect-ratio: 1; 
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.panel-title {
+  font-weight: 600;
+  font-size: 3vmin;
+}
+
+.btn:hover, .resetFilter:hover, .filter:hover {
+  opacity: 70%;
+  cursor: pointer;
+  color: #FCEFE2;
+  background-color: #ED5C01;
+}
+
+.btn {
+  background-color: #ED5C01;
+  color: #FCEFE2;
+  border-radius: 1.5vmin;
+  border: none;
+  font-family: 'Josefin Sans', sans-serif;
+  width: 6vw;
+  height: 5.5vh;
+  text-decoration: none;
+}
+
+.btn:visited .resetFilter:visited, .filter:visited {
+  border: none;
 }
