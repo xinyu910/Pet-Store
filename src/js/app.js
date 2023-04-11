@@ -237,7 +237,6 @@ App = {
         }).then(function (admin) {
           if (admin === account) {
             $('.product-show').show();
-            $('#hide-price').show();
             $('#sale-hide').show();
           }
         }).catch(function (err) {
