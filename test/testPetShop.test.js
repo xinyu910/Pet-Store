@@ -14,7 +14,7 @@ contract("PetShop", (accounts) => {
       originalProductCount = parseInt(await petshop.getProductCount());
       //await petshop.registerPet("Tish", 2, "Shiba Inu", "Toronto, ON", "an example photo url", web3.utils.toWei("0.01", "ether"), web3.utils.toWei("0.0001", "ether"), {from: accounts[0], value: web3.utils.toWei("0.0001", "ether")});
       await petshop.registerPet("Tish", 2, "Male","Shiba Inu", "Toronto, ON", "an example photo url", "10000000000000000", "100000000000000", {from: accounts[0], value: "100000000000000"});
-      await petshop.addProduct("product_name", "Suppliers", "Essentials" ,"product photo url",100000 , 100, {from: accounts[0], value: "100000000000000"});
+      await petshop.addProduct("product_name", "Suppliers", "Essentials" ,"product photo url", 100000, 100, {from: accounts[0]});
   });
 
   describe("register a new pet using account[0] and validate pet information", async () => {
