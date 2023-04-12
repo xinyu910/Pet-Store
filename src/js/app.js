@@ -140,14 +140,18 @@ App = {
               petTemplate.find('.pet-location').text(pet[4]);
               let x = BigInt("100000000000000");
               let price = Number(BigInt(pet[6]) / x) / 10000;
+              let id = pet[0];
               if (price > 0) {
                 petTemplate.find('.btn-buy').show();
                 petTemplate.find('.btn-adopt').hide();
-                petTemplate.find('.btn-buy').attr('data-id', pet[0]);
+                petTemplate.find('.btn-buy').attr('data-id', id);
                 if (pet[7] === true) {
-                  petTemplate.find('.btn-buy').text('Sold').attr('disabled', true);
+                  petTemplate.find('.btn').data(id).text('Sold').attr('disabled', true);
+                  petTemplate.find('.btn').data(id).css({'cursor': 'none', 'opacity': '70%', 'background-color': '#ED5C01'});
+                  //petTemplate.find('.btn-buy').removeClass("intro")
                 } else {
-                  petTemplate.find('.btn-buy').text('Buy').attr('disabled', false);
+                  petTemplate.find('.btn').data(id).text('Buy').attr('disabled', false);
+                  petTemplate.find('.btn').data(id).css({'opacity': '100%', 'cursor': 'pointer'});
                 }
               } else {
                 petTemplate.find('.btn-adopt').show();
@@ -155,9 +159,11 @@ App = {
                 petTemplate.find('.btn-adopt').attr('data-id', pet[0]);
                 console.log(pet[7]);
                 if (pet[7] === true) {
-                  petTemplate.find('.btn-adopt').text('Adopted').attr('disabled', true);
+                  petTemplate.find('.btn').data(id).text('Adopted').attr('disabled', true);
+                  petTemplate.find('.btn').data(id).css({'cursor': 'none', 'opacity': '70%', 'background-color': '#ED5C01'});
                 } else {
-                  petTemplate.find('.btn-adopt').text('Adopt').attr('disabled', false);
+                  petTemplate.find('.btn').data(id).text('Adopt').attr('disabled', false);
+                  petTemplate.find('.btn').data(id).css({'opacity': '100%', 'cursor': 'pointer'});
                 }
               }
               petTemplate.find('.pet-price').text(price);
