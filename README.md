@@ -30,7 +30,7 @@ Our pet shop DApp is a decentralized application designed to offer an efficient 
   In the Metamask: 
   * Click “Import Wallet” to import an account, enter the mnemonic that is displayed in Ganache.
   * Add a new network by entering the fields shown below: <br />
-  ![image](https://user-images.githubusercontent.com/52727328/234967045-bf928c3f-901d-43bc-ab56-4b9b90f9842d.png)
+  <img src="https://user-images.githubusercontent.com/52727328/234967045-bf928c3f-901d-43bc-ab56-4b9b90f9842d.png" width="250" height="auto">
 * Open a new terminal and cd into the DApp folder, run the following command to start the DApp:
   ```
   truffle compile
